@@ -58,6 +58,13 @@ const json = '{"x": 10, "y": 20}';
 const coordsFromJSON = JSON.parse(json);
 console.log(coordsFromJSON.x); // 10;
 
+// eval : mauvaise pratique
+// jslint puis jshint / jscs puis eslint
+// options evil (vérifiait qu'on utilise jamais eval)
+eval('function add(a, b) { return a + b}');
+console.log(add(2, 3));
+const result = eval('2 + 3');
+
 // On peut boucler sur les clés
 for (let key in coords) {
   console.log(key); // 'x' puis 'y'
@@ -106,8 +113,9 @@ console.log(edouard.hello()); // Bonjour je m'appelle Edouard
 console.log(romain.hello === edouard.hello); // false (2 fonctions hello)
 
 // on utilisera les fonctions constructeurs
-const Contact = function(prenom) {
-  this._prenom = prenom || '';
+const Contact = function(options) {
+  const { prenom = '' } = options;
+  this._prenom = prenom;
 };
 
 Contact.getClass = function() {
@@ -118,13 +126,18 @@ Contact.prototype.hello = function() {
   return 'Bonjour je m\'appelle ' + this._prenom;
 };
 
-const eric = new Contact('Eric');
+const eric = new Contact({ prenom: 'Eric' });
 console.log(typeof eric); // object
 console.log(eric._prenom); // Eric (censé être privé)
 console.log(Contact.getClass()); // Contact
 console.log(eric.hello()); // Bonjour je m'appelle Eric
-const jean = new Contact('Jean');
+const jean = new Contact({ prenom: 'Jean' });
 console.log(eric.hello === jean.hello); // true
+console.log(eric.hasOwnProperty('_prenom')); // true
+console.log(eric.hasOwnProperty('hello')); // false
+console.log(eric instanceof Contact); // true
+
+
 
 /*
 const Voiture = function(marque) {

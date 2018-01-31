@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import './ButtonCounter.css';
+import { withButtonHide } from '../hocs/withButtonHide';
 
 // Composant Stateful
 export class ButtonCounter extends Component {
@@ -42,3 +43,5 @@ export class ButtonCounter extends Component {
     );
   }
 }
+
+export const ButtonCounterHideable = withButtonHide(ButtonCounter);

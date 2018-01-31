@@ -1,9 +1,10 @@
 import React, { Component } from 'react';
 import { Hello } from './Hello';
 import { Clock } from './Clock';
-import { ButtonCounter } from './ButtonCounter';
+import { ButtonCounter, ButtonCounterHideable } from './ButtonCounter';
 import { HelloList } from './HelloList';
 import { ContactForm } from './ContactForm';
+import { ConnectedButtonCounterHideable } from '../containers/ConnectedButtonCounter';
 
 // Stateless Component
 export class App extends Component {
@@ -24,6 +25,8 @@ export class App extends Component {
   render() {
     return (
       <div>
+        <Hello name="Jean (static)" />
+        <hr />
         <Hello name={this.state.contact.prenom} />
         <hr />
         <Clock />
@@ -33,6 +36,12 @@ export class App extends Component {
         <HelloList />
         <hr />
         <ContactForm onNewContact={this.handleNewContact} />
+        <hr />
+        <ButtonCounterHideable />
+        <hr />
+        <ConnectedButtonCounterHideable index={0} />
+        <hr />
+        <ConnectedButtonCounterHideable index={1} />
       </div>
     );
   }

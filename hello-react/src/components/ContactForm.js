@@ -1,6 +1,14 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 
 export class ContactForm extends Component {
+  static propTypes = {
+    onNewContact: PropTypes.func,
+  };
+
+  // const cloneTableau = [...ancienTableau]
+  // const newTableau [...ancienTableau, newValeur];
+  
   state = {
     prenom: '',
     nom: '',
